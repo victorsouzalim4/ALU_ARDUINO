@@ -54,15 +54,15 @@ class ALU{
   
   public:
   ALU(){
-	this->memory = new String[100];
+	  this->memory = new String[100];
     this->maxMemorySize = 100;
-    this->currentMemorySize = 4;
+    this->currentMemorySize = 4;    //first 4 array positions are reserved areas
     for(int i = 0; i < 4; i++){
       memory[i] = "0";
     }
   }
   ALU(int len){
-	this->memory = new String[len];
+	  this->memory = new String[len];
     this->maxMemorySize = len;
     this->currentMemorySize = 4;
     for(int i = 0; i < 4; i++){
@@ -71,7 +71,7 @@ class ALU{
   }
   
   bool registerOperation(String expression){
-    if(currentMemorySize < maxMemorySize){
+    if(currentMemorySize < maxMemorySize){    
       memory[currentMemorySize] = expression;
       currentMemorySize++;
       return true;
@@ -120,7 +120,6 @@ class ALU{
 
 void loop(){
   ALU obj;
-  
   while(true){
       
   	if(Serial.available() > 0){

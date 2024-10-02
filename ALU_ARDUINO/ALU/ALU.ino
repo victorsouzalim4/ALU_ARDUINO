@@ -73,6 +73,7 @@ class ALU{
     Serial.println();
   }
 
+  private:
   String fromHexaToBinary(char value){
     switch(value){
       case '0':
@@ -179,6 +180,55 @@ class ALU{
     int result = v1^v2;
 
     return result == 0 ? '0' : '1';
+  }
+
+  char op0(char a, char b){
+    return orGate(a, notGate(a));
+  }
+  char op1(char a, char b){
+    return orGate(a, notGate(b));
+  }
+  char op2(char a, char b){
+    return andGate(a, a);
+  }
+  char op3(char a, char b){
+    return xorGate(notGate(a), notGate(b));
+  }
+  char op4(char a, char b){
+    return notGate(andGate(a, b));
+  }
+  char op5(char a, char b){
+    return notGate(a);
+  }
+  char op6(char a, char b){
+    return andGate(a, notGate(b));
+  }
+  char op7(char a, char b){
+    return orGate(notGate(a), notGate(b));
+  }
+  char op8(char a, char b){
+    return xorGate(a, b);
+  }
+  char op9(char a, char b){
+    return andGate(a, notGate(a));
+  }
+  char opA(char a, char b){
+    return andGate(b, b);
+  }
+  char opB(char a, char b){
+    return andGate(a, b);
+  }
+  char opC(char a, char b){
+    return notGate(b);
+  }
+  char opD(char a, char b){
+    return notGate(andGate(notGate(a), b));
+  }
+  char opE(char a, char b){
+    return orGate(a, b);
+  }
+  char opF(char a, char b){
+    return andGate(notGate(a), b);
   }
 
 };

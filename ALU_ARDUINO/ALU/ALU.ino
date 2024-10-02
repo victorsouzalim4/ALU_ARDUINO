@@ -4,8 +4,6 @@ void setup(){
 
 using namespace std;
 
-
-
 class ALU{
   private:
   String* memory;
@@ -34,6 +32,31 @@ class ALU{
     }
   }
   
+  String getPC(){
+    return this->memory[PC];
+  }
+  void setPC(String newPC){
+    this->memory[PC] = newPC;
+  }
+  String getX(){
+    return this->memory[X];
+  }
+  void setX(String newX){
+    this->memory[X] = newX;
+  }
+  String getY(){
+    return this->memory[Y];
+  }
+  void setY(String newY){
+    this->memory[Y] = newY;
+  }
+  String getW(){
+    return this->memory[W];
+  }
+  void setW(String newW){
+    this->memory[W] = newW;
+  }
+
   bool registerOperation(String expression){
     if(currentMemorySize < maxMemorySize){    
       memory[currentMemorySize] = expression;
@@ -48,34 +71,6 @@ class ALU{
       Serial.print(memory[i] + " ");
     }
     Serial.println();
-  }
-  
-  String getPC(){
-    return this->memory[PC];
-  }
-  void setPC(String newPC){
-    this->memory[PC] = newPC;
-  }
-  
-  String getX(){
-    return this->memory[X];
-  }
-  void setX(String newX){
-    this->memory[X] = newX;
-  }
-  
-  String getY(){
-    return this->memory[Y];
-  }
-  void setY(String newY){
-    this->memory[Y] = newY;
-  }
-  
-  String getW(){
-    return this->memory[W];
-  }
-  void setW(String newW){
-    this->memory[W] = newW;
   }
 
   String fromHexaToBinary(char value){
@@ -155,10 +150,37 @@ class ALU{
    
   }
 
-  
-    
- 
-  
+  char andGate(char a, char b){
+    int v1 = a - 48;
+    int v2 = b - 48;
+    int result = v1&v2;
+
+    return result == 0 ? '0' : '1';
+  }
+
+  char orGate(char a, char b){
+    int v1 = a - 48;
+    int v2 = b - 48;
+    int result = v1|v2;
+
+    return result == 0 ? '0' : '1';
+  }
+
+  char notGate(char a){
+    int v1 = a - 48;
+    int result = (~v1);
+
+    return result == -2 ? '0' : '1';
+  }
+
+  char xorGate(char a, char b){
+    int v1 = a - 48;
+    int v2 = b - 48;
+    int result = v1^v2;
+
+    return result == 0 ? '0' : '1';
+  }
+
 };
 
 

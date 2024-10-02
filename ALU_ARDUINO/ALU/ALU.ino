@@ -236,8 +236,11 @@ class ALU{
 
 void loop(){
   ALU obj;
+  int i = 0;
+  char c;
   while(true){ 
   	if(Serial.available() >= 3){
+      i++;
       String x((char)Serial.read());
       String y((char)Serial.read());
       String w((char)Serial.read());
@@ -245,9 +248,13 @@ void loop(){
   
   		Serial.println(str);
   		obj.registerOperation(str);
-  		obj.printMemory();
+      if(i >= 10){
+        obj.printMemory();
+      }
       
-      char c = Serial.read(); //get '\n' or 'space' between expressions
+      delay(10);
+      char c = Serial.read(); // get '\n' or 'space' between expressions
+	
   	}
   }
 }

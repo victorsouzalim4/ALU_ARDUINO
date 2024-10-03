@@ -36,25 +36,25 @@ class ALU{
     return this->memory[PC];
   }
   void setPC(String newPC){
-    this->memory[PC] = newPC;
+    this->memory[0] = newPC;
   }
   String getX(){
     return this->memory[X];
   }
   void setX(String newX){
-    this->memory[X] = newX;
+    this->memory[2] = newX;
   }
   String getY(){
     return this->memory[Y];
   }
   void setY(String newY){
-    this->memory[Y] = newY;
+    this->memory[3] = newY;
   }
   String getW(){
     return this->memory[W];
   }
   void setW(String newW){
-    this->memory[W] = newW;
+    this->memory[1] = newW;
   }
 
   bool registerOperation(String expression){
@@ -65,6 +65,23 @@ class ALU{
     }
     return false;
   }
+
+  void operate(){
+    for(int i = 4; i < currentMemorySize; i++){
+        String temp = memory[i];
+        memory[0] = String(i);
+        memory[2] = temp[0];
+        memory[3] = temp[1];
+
+        String var0 = fromHexaToBinary(temp[0]);
+        String var1 = fromHexaToBinary(temp[1]);
+        String result = operate(var0, var1, temp[2]);
+        printMemory();
+        Serial.println(result);
+
+        memory[1] = fromBinaryToHexa(result);
+    }
+  }
   
   void printMemory(){
     for(int i = 0; i < currentMemorySize; i++){
@@ -74,6 +91,95 @@ class ALU{
   }
 
   private:
+  String operate(String var0, String var1, char opCode){
+    String result = "";
+
+    switch(opCode){
+      case '0':
+        for(int i = 0; i < 4; i++){
+          result += op0(var0[i], var1[i]); 
+        }
+        break;
+      case '1':
+        for(int i = 0; i < 4; i++){
+          result += op1(var0[i], var1[i]); 
+        }
+        break;
+      case '2':
+        for(int i = 0; i < 4; i++){
+          result += op2(var0[i], var1[i]); 
+        }
+        break;
+      case '3':
+        for(int i = 0; i < 4; i++){
+          result += op3(var0[i], var1[i]); 
+        }
+        break;
+      case '4':
+        for(int i = 0; i < 4; i++){
+          result += op4(var0[i], var1[i]); 
+        }
+        break;
+      case '5':
+        for(int i = 0; i < 4; i++){
+          result += op5(var0[i], var1[i]); 
+        }
+        break;
+      case '6':
+        for(int i = 0; i < 4; i++){
+          result += op6(var0[i], var1[i]); 
+        }
+        break;
+      case '7':
+        for(int i = 0; i < 4; i++){
+          result += op7(var0[i], var1[i]); 
+        }
+        break;
+      case '8':
+        for(int i = 0; i < 4; i++){
+          result += op8(var0[i], var1[i]); 
+        }
+        break;
+      case '9':
+        for(int i = 0; i < 4; i++){
+          result += op9(var0[i], var1[i]); 
+        }
+        break;
+      case 'A':
+        for(int i = 0; i < 4; i++){
+          result += opA(var0[i], var1[i]); 
+        }
+        break;
+      case 'B':
+        for(int i = 0; i < 4; i++){
+          result += opB(var0[i], var1[i]); 
+        }
+        break;
+      case 'C':
+        for(int i = 0; i < 4; i++){
+          result += opC(var0[i], var1[i]); 
+        }
+        break;
+      case 'D':
+        for(int i = 0; i < 4; i++){
+          result += opD(var0[i], var1[i]); 
+        }
+        break;
+      case 'E':
+        for(int i = 0; i < 4; i++){
+          result += opE(var0[i], var1[i]); 
+        }
+        break;
+      case 'F':
+        for(int i = 0; i < 4; i++){
+          result += opF(var0[i], var1[i]); 
+        }
+        break;
+    }
+
+    return result;
+  }
+
   String fromHexaToBinary(char value){
     switch(value){
       case '0':
@@ -244,12 +350,11 @@ void loop(){
       String x((char)Serial.read());
       String y((char)Serial.read());
       String w((char)Serial.read());
-    	String str = x+y+w;
+      String str = x+y+w;
   
-  		Serial.println(str);
   		obj.registerOperation(str);
-      if(i >= 10){
-        obj.printMemory();
+      if(i >= 5){
+        obj.operate();
       }
       
       delay(10);

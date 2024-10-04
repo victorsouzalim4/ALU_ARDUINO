@@ -1,5 +1,4 @@
 def hex_operation(X: str, Y: str, W: str) -> str:
-    # Dicionário que mapeia cada mnemônico ao seu valor hexadecimal
     mnemonic_to_hex = {
         "umL": "0",
         "AonB": "1",

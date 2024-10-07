@@ -10,9 +10,9 @@ class ALU{
   int currentMemorySize;
   int maxMemorySize;
   const int PC = 0;
-  const int X = 1;
-  const int Y = 2;
-  const int W = 3;
+  const int W = 1;
+  const int X = 2;
+  const int Y = 3;
   
   public:
   ALU(){
@@ -36,25 +36,25 @@ class ALU{
     return this->memory[PC];
   }
   void setPC(String newPC){
-    this->memory[0] = newPC;
+    this->memory[PC] = newPC;
   }
   String getX(){
     return this->memory[X];
   }
   void setX(String newX){
-    this->memory[2] = newX;
+    this->memory[X] = newX;
   }
   String getY(){
     return this->memory[Y];
   }
   void setY(String newY){
-    this->memory[3] = newY;
+    this->memory[Y] = newY;
   }
   String getW(){
     return this->memory[W];
   }
   void setW(String newW){
-    this->memory[1] = newW;
+    this->memory[W] = newW;
   }
 
   bool registerOperation(String expression){

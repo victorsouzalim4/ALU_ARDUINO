@@ -1,5 +1,19 @@
 void setup(){
 	Serial.begin(9600);
+  pinMode(13,OUTPUT);
+  pinMode(12,OUTPUT);
+  pinMode(11,OUTPUT);
+  pinMode(10,OUTPUT);
+}
+
+void setLeds(String result){
+  for(int i = 0; i < 4; i++){
+    if(result[i] == '1'){
+      digitalWrite((13-i), HIGH);
+    }else{
+      digitalWrite((13-i), LOW);
+    }
+  }
 }
 
 using namespace std;
@@ -76,10 +90,13 @@ class ALU{
         String var0 = fromHexaToBinary(temp[0]);
         String var1 = fromHexaToBinary(temp[1]);
         String result = operate(var0, var1, temp[2]);
+        memory[1] = fromBinaryToHexa(result);
+
         printMemory();
         Serial.println(result);
+        setLeds(result);
+        delay(3000);
 
-        memory[1] = fromBinaryToHexa(result);
     }
   }
   
@@ -351,9 +368,10 @@ void loop(){
       String y((char)Serial.read());
       String w((char)Serial.read());
       String str = x+y+w;
+      Serial.println(str);
   
   		obj.registerOperation(str);
-      if(i >= 5){
+      if(i >= 95){
         obj.operate();
       }
       

@@ -7,7 +7,6 @@ void setup() {
 }
 
 void loop(){
-  VonNeumannMachine obj;
   int i = 0;
   char c;
   while(true){ 
@@ -19,9 +18,9 @@ void loop(){
       String str = x+y+w;
       Serial.println(str);
   
-  		obj.registerOperation(str);
+  	  vnm.registerOperation(str);
       if(i >= 95){
-        obj.operate();
+        vnm.operate();
       }
       
       delay(10);
